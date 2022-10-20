@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './index.css'
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Boards from './pages/Boards';
-import BoardsList from './pages/BoardsList';
+import { useAppSelector } from './hooks/useAppSelector';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { RegisterPage } from './pages/RegisterPage';
+import { BoardListPage } from './pages/BoardListPage';
+import { BoardContentPage } from './pages/BoardContentPage';
+import { RequireAuth } from './components/RequireAuth';
+import { LoginPage } from './pages/LoginPage';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { appStyle } from './App.style';
 
-function App() {
+const App: React.FC = () => {
+  const auth = useAppSelector(state => state.auth);
+
   return (
-    <div className="App">
-      <BrowserRouter>
+    <CssBaseline>
+      <ThemeProvider theme={appStyle}>
+        <BrowserRouter>
           <Routes>
-            {/* <Route path="/" element={<LoginPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} /> */}
-            <Route path="/boards" element={<Boards />} />
-            <Route path="/boardsList" element={<BoardsList />} />
+            <Route path='*' element={<Navigate to={auth.userId ? `user${auth.userId}` : 'login'} />} />
+            <Route path='login' element={auth.userId ? <Navigate to={`user${auth.userId}`} /> : <LoginPage />} />
+            <Route path='register' element={auth.userId ? <Navigate to={`user${auth.userId}`} /> : <RegisterPage />} />
+            <Route path='user:userId' element={<RequireAuth />}>
+              <Route index element={<BoardListPage />} />
+              <Route path='board:boardId' element={<BoardContentPage />} />
+              <Route path='*' element={<Navigate to='' />} />
+            </Route>
           </Routes>
-        </BrowserRouter>
-    </div>
+        </BrowserRouter >
+      </ThemeProvider>
+    </CssBaseline>
   );
 }
 

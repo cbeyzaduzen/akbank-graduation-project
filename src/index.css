@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html,
+body,
+div,
+form,
+p,
+pre {
+  font-size: 100%;
+  font-weight: normal;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Poppins', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0;
+  padding: 0;
+
+  vertical-align: baseline;
+
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+img,
+svg {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #37474f;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-tap-highlight-color: transparent;
+}
